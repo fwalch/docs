@@ -1,0 +1,316 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Overview &mdash; Franka Control Interface (FCI) 0.1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.png"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/style_override.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Franka Control Interface (FCI) 0.1.0 documentation" href="index.html"/>
+        <link rel="next" title="Minimum system and network requirements" href="requirements.html"/>
+        <link rel="prev" title="Franka Control Interface Documentation" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Franka Control Interface (FCI)
+          
+
+          
+            
+            <img src="_static/logo.svg" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="requirements.html">Minimum system and network requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libfranka.html">libfranka</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ros_introduction.html">franka_ros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Franka Control Interface (FCI)</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Overview</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/overview.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="overview">
+<h1>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
+<div class="align-center figure" id="id1">
+<img alt="alternate text" src="_images/overview.png" />
+<p class="caption"><span class="caption-text">Schematic overview of the components.</span></p>
+</div>
+<p>The Franka Control Interface (FCI) allows a fast and direct low-level bidirectional connection
+to the Arm and Hand. It provides the current status of the robot and enables its direct control.
+You can execute custom trajectories by sending real-time control values:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Desired gravity &amp; friction compensated joint level torque commands.</li>
+<li>Desired joint position or velocity command.</li>
+<li>Desired Cartesian position or velocity command.</li>
+</ul>
+</div></blockquote>
+<p>Furthermore, you get access to the following feedback data:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Measured joint data, such as the position, velocity and link side torque sensor signals.</li>
+<li>Low-level desired joint goals.</li>
+<li>Estimation of externally applied torques and wrenches.</li>
+<li>Various collision and contact information.</li>
+</ul>
+</div></blockquote>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">While the FCI is active you have full, exclusive control of the Arm and Hand. This means that
+you <cite>cannot</cite> use Desk or Apps at the same time as the FCI.</p>
+</div>
+<p>The FCI client components are:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">franka_description</span></code></li>
+<li><code class="docutils literal"><span class="pre">libfranka</span></code></li>
+<li><code class="docutils literal"><span class="pre">franka_ros</span></code></li>
+</ul>
+<p><code class="docutils literal"><span class="pre">franka_description</span></code> provides <a class="reference external" href="https://wiki.ros.org/urdf">URDF</a> models and detailed 3D meshes
+of our robots and end effectors. It also includes simplified meshes to be used for collision checks.</p>
+<p><code class="docutils literal"><span class="pre">libfranka</span></code> provides a C++ interface which is run on a workstation PC. The connection to the FCI
+is established via a standard Ethernet connection to Control. The FCI provides high-speed
+measurements from the Arm and Hand. Furthermore, it accepts control commands at an update frequency
+of 1 kHz. With this library, it is possible to:</p>
+<ul class="simple">
+<li>Retrieve information about the current state of the robot, e.g. current end effector pose, joint
+angles, or the gripper status.</li>
+<li>Execute motions by sending joint positions, joint velocities, Cartesian poses, or Cartesian
+velocities.</li>
+<li>Send joint level torque commands.</li>
+<li>Change parameters like the collision sensitivity, set additional loads, the joint or Cartesian
+stiffness etc.</li>
+<li>Calculate forward kinematics and other model properties from the current robot state.</li>
+<li>Control the gripper.</li>
+<li>Use the robot model library which provides the following:<ul>
+<li>Forward kinematics of all robot joints.</li>
+<li>Jacobian matrix of all robot joints.</li>
+<li>Dynamics: inertia matrix, Coriolis and centrifugal vector and gravity vector.</li>
+</ul>
+</li>
+</ul>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">Data is sent over the network with a frequency of 1 kHz. Therefore, a good network connection
+is vital!</p>
+</div>
+<p><code class="docutils literal"><span class="pre">franka_ros</span></code> connects Franka Emika research robots with the entire ROS ecosystem. It provides
+functionality equivalent to <code class="docutils literal"><span class="pre">libfranka</span></code> for <a class="reference external" href="https://wiki.ros.org/ros_control">ROS Control</a>.
+In combination with <code class="docutils literal"><span class="pre">franka_description</span></code>, it allows visualization (e.g. RViz) and kinematic
+simulations. <a class="reference external" href="https://wiki.ros.org/moveit">MoveIt!</a> integration makes it easy to move the robot
+and control the gripper, and the provided examples show you how to control your robot using ROS.</p>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="requirements.html" class="btn btn-neutral float-right" title="Minimum system and network requirements" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Franka Control Interface Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Franka Emika GmbH.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

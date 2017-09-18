@@ -1,0 +1,326 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Getting started &mdash; Franka Control Interface (FCI) 0.1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.png"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/style_override.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Franka Control Interface (FCI) 0.1.0 documentation" href="index.html"/>
+        <link rel="next" title="libfranka" href="libfranka.html"/>
+        <link rel="prev" title="Installation instructions" href="installation.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Franka Control Interface (FCI)
+          
+
+          
+            
+            <img src="_static/logo.svg" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="requirements.html">Minimum system and network requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation instructions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#powering-on-the-robot">Powering on the robot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#verifying-the-connection">Verifying the connection</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="libfranka.html">libfranka</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ros_introduction.html">franka_ros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Franka Control Interface (FCI)</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Getting started</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/tutorial.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="getting-started">
+<h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<p>After <a class="reference internal" href="installation.html"><span class="doc">setting up the required software</span></a>, your robot needs to be installed and
+tested. <strong>Please read through the documents shipped with your robot and follow the setup
+instructions before continuing any further!</strong></p>
+<div class="section" id="powering-on-the-robot">
+<h2>Powering on the robot<a class="headerlink" href="#powering-on-the-robot" title="Permalink to this headline">¶</a></h2>
+<p>Always check the following things before powering on the robot.</p>
+<ol class="arabic simple">
+<li>Make sure that the Arm has been mounted on a stable base and cannot topple over, even
+when performing fast motions or abrupt stops.</li>
+</ol>
+<div class="admonition caution">
+<p class="first admonition-title">Caution</p>
+<p class="last">Only tabletop mounting is supported, i.e. the Arm must be mounted perpendicular to the
+ground! Other mountings will <strong>void your warranty</strong> and <strong>might cause damage
+to the robot</strong>!</p>
+</div>
+<ol class="arabic simple" start="2">
+<li>Ensure that the cable connecting Arm and Control is firmly attached on both sides.</li>
+<li>Connect the external activation device to Arm’s base and keep it next to you in order to be
+able to stop the robot at any time.</li>
+</ol>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">Activating the external activation device will disconnect the Arm from Control.
+The joint motor controllers will then hold their current position.
+The <em>external activation device is not an emergency stop!</em></p>
+</div>
+<p>The manual shipped with your robot describes how to specify the IP address of the Control’s
+LAN port during the setup process. In the following sections that address is referred to
+as &lt;fci-ip&gt;.</p>
+<p>The workstation PC, which commands your robot using the FCI,
+must always be connected to the LAN port of Control and <cite>not</cite> to the LAN port of Arm.</p>
+</div>
+<div class="section" id="verifying-the-connection">
+<h2>Verifying the connection<a class="headerlink" href="#verifying-the-connection" title="Permalink to this headline">¶</a></h2>
+<p>In order to verify that everything is correctly set up, run the <code class="docutils literal"><span class="pre">echo_robot_state</span></code>
+example from <code class="docutils literal"><span class="pre">libfranka</span></code>.</p>
+<p>Change to the build directory of <code class="docutils literal"><span class="pre">libfranka</span></code> and execute the example:</p>
+<div class="highlight-shell"><div class="highlight"><pre><span></span>./examples/echo_robot_state &lt;fci-ip&gt;
+</pre></div>
+</div>
+<p>The program will print the current state of the robot to the console and terminate after a few
+iterations.</p>
+<p>Example output:</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;O_T_EE&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.99507</span><span class="p">,</span><span class="mf">-0.087825</span><span class="p">,</span><span class="mf">0.0458691</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">-0.0932286</span><span class="p">,</span><span class="mf">-0.98667</span><span class="p">,</span><span class="mf">0.133307</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.0335506</span><span class="p">,</span><span class="mf">-0.136928</span><span class="p">,</span>
+             <span class="mf">-0.990013</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.466187</span><span class="p">,</span><span class="mf">-0.0437226</span><span class="p">,</span><span class="mf">0.310521</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
+  <span class="nt">&quot;O_T_EE_d&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.7071</span><span class="p">,</span><span class="mf">0.7071</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.7071</span><span class="p">,</span><span class="mf">-0.7071</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">-1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.088</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.769</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
+  <span class="nt">&quot;F_T_EE&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="nt">&quot;EE_T_K&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
+  <span class="nt">&quot;m_load&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;F_x_Cload&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="nt">&quot;I_load&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+  <span class="nt">&quot;elbow&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">-0.0658817</span><span class="p">,</span><span class="mi">-1</span><span class="p">],</span> <span class="nt">&quot;elbow_d&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
+  <span class="nt">&quot;tau_J&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.159435</span><span class="p">,</span><span class="mf">-16.7615</span><span class="p">,</span><span class="mf">0.0478516</span><span class="p">,</span><span class="mf">18.8524</span><span class="p">,</span><span class="mf">0.751037</span><span class="p">,</span><span class="mf">1.43036</span><span class="p">,</span><span class="mf">0.0289359</span><span class="p">],</span>
+  <span class="nt">&quot;dtau_J&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+  <span class="nt">&quot;q&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.0412189</span><span class="p">,</span><span class="mf">-0.294853</span><span class="p">,</span><span class="mf">-0.0658817</span><span class="p">,</span><span class="mf">-2.30709</span><span class="p">,</span><span class="mf">-0.175077</span><span class="p">,</span><span class="mf">2.04355</span><span class="p">,</span><span class="mf">0.931813</span><span class="p">],</span>
+  <span class="nt">&quot;dq&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">-0.000408694</span><span class="p">,</span><span class="mf">-0.000135271</span><span class="p">,</span><span class="mf">8.87298e-05</span><span class="p">,</span><span class="mf">0.000983035</span><span class="p">,</span><span class="mf">-0.00110876</span><span class="p">,</span><span class="mf">-0.00250781</span><span class="p">,</span><span class="mf">0.00128548</span><span class="p">],</span>
+  <span class="nt">&quot;q_d&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="nt">&quot;dq_d&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+  <span class="nt">&quot;joint_contact&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="nt">&quot;cartesian_contact&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+  <span class="nt">&quot;joint_collision&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="nt">&quot;cartesian_collision&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+  <span class="nt">&quot;tau_ext_hat_filtered&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.172327</span><span class="p">,</span><span class="mf">-0.230889</span><span class="p">,</span><span class="mf">-0.130005</span><span class="p">,</span><span class="mf">-0.189423</span><span class="p">,</span><span class="mf">0.067974</span><span class="p">,</span><span class="mf">-0.237919</span><span class="p">,</span><span class="mf">0.0259882</span><span class="p">],</span>
+  <span class="nt">&quot;O_F_ext_hat_K&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">-1.28182</span><span class="p">,</span><span class="mf">0.136979</span><span class="p">,</span><span class="mf">0.436185</span><span class="p">,</span><span class="mf">0.0400712</span><span class="p">,</span><span class="mf">-0.651955</span><span class="p">,</span><span class="mf">0.0273414</span><span class="p">],</span>
+  <span class="nt">&quot;K_F_ext_hat_K&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">-1.26755</span><span class="p">,</span><span class="mf">0.0424965</span><span class="p">,</span><span class="mf">-0.493591</span><span class="p">,</span><span class="mf">0.106515</span><span class="p">,</span><span class="mf">0.0430354</span><span class="p">,</span><span class="mf">-0.00899586</span><span class="p">],</span>
+  <span class="nt">&quot;current_errors&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="nt">&quot;last_motion_errors&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="nt">&quot;robot_mode&quot;</span><span class="p">:</span> <span class="s2">&quot;Idle&quot;</span><span class="p">,</span> <span class="nt">&quot;time&quot;</span><span class="p">:</span> <span class="mi">12444112</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">If an error occurs at this point, perform the
+<a class="reference internal" href="troubleshooting.html#troubleshooting-robot-not-reachable"><span class="std std-ref">ping test</span></a> and ensure that the robot’s fail-safe
+safety locking system is opened. Further information are provided in the manual shipped with
+the robot.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="libfranka.html" class="btn btn-neutral float-right" title="libfranka" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="installation.html" class="btn btn-neutral" title="Installation instructions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Franka Emika GmbH.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

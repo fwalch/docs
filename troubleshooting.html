@@ -1,0 +1,307 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Troubleshooting &mdash; Franka Control Interface (FCI) 0.1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.png"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/style_override.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Franka Control Interface (FCI) 0.1.0 documentation" href="index.html"/>
+        <link rel="prev" title="franka_ros" href="ros_introduction.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Franka Control Interface (FCI)
+          
+
+          
+            
+            <img src="_static/logo.svg" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="requirements.html">Minimum system and network requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libfranka.html">libfranka</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ros_introduction.html">franka_ros</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#jumps-in-robot-motion">Jumps in robot motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#robot-is-not-reachable">Robot is not reachable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#network-bandwidth-delay-and-jitter-test">Network bandwidth, delay and jitter test</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Franka Control Interface (FCI)</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Troubleshooting</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/troubleshooting.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="troubleshooting">
+<h1>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h1>
+<p>This section lists solutions to a set of possible errors which can happen when using the FCI.</p>
+<blockquote>
+<div><div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">Further help is provided in the troubleshooting page of the manual shipped with your robot.</p>
+</div>
+</div></blockquote>
+<div class="section" id="jumps-in-robot-motion">
+<h2>Jumps in robot motion<a class="headerlink" href="#jumps-in-robot-motion" title="Permalink to this headline">¶</a></h2>
+<p>Please check the following:</p>
+<ul class="simple">
+<li>Ubuntu is booted with RT kernel on your workstation PC</li>
+<li>RT permissions for the process are set according to
+<a class="reference internal" href="installation.html#installation-real-time"><span class="std std-ref">installation instructions</span></a></li>
+<li>Check <a class="reference internal" href="#network-bandwidth-delay-and-jitter-test">Network bandwidth, delay and jitter test</a></li>
+</ul>
+</div>
+<div class="section" id="robot-is-not-reachable">
+<span id="troubleshooting-robot-not-reachable"></span><h2>Robot is not reachable<a class="headerlink" href="#robot-is-not-reachable" title="Permalink to this headline">¶</a></h2>
+<p>Try to ping the robot using the following command:</p>
+<div class="highlight-shell"><div class="highlight"><pre><span></span>ping &lt;fci-ip&gt;
+</pre></div>
+</div>
+<p>If this command fails, the robot is not properly connected to the network, or the IP address
+is not correctly assigned during the setup phase. Please set up the network according to the
+documents sent with your robot.</p>
+</div>
+<div class="section" id="network-bandwidth-delay-and-jitter-test">
+<span id="network-bandwidth-delay-test"></span><h2>Network bandwidth, delay and jitter test<a class="headerlink" href="#network-bandwidth-delay-and-jitter-test" title="Permalink to this headline">¶</a></h2>
+<p>The following command will simulate a network load which is equivalent to a scenario where the
+robot is controlled by the FCI:</p>
+<div class="highlight-shell"><div class="highlight"><pre><span></span>sudo ping &lt;fci-ip&gt; -i <span class="m">0</span>.001 -D -c <span class="m">10000</span> -s <span class="m">1200</span>
+</pre></div>
+</div>
+<p>Example output:</p>
+<div class="highlight-shell"><div class="highlight"><pre><span></span>PING &lt;fci-ip&gt; <span class="m">1200</span><span class="o">(</span><span class="m">1228</span><span class="o">)</span> bytes of data.
+<span class="o">[</span><span class="m">1500982522</span>.977579<span class="o">]</span> <span class="m">1208</span> bytes from &lt;fci-ip&gt;: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">1</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">64</span> <span class="nv">time</span><span class="o">=</span><span class="m">0</span>.279 ms
+<span class="o">[</span><span class="m">1500982522</span>.978423<span class="o">]</span> <span class="m">1208</span> bytes from &lt;fci-ip&gt;: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">2</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">64</span> <span class="nv">time</span><span class="o">=</span><span class="m">0</span>.224 ms
+<span class="o">[</span><span class="m">1500982522</span>.979434<span class="o">]</span> <span class="m">1208</span> bytes from &lt;fci-ip&gt;: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">3</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">64</span> <span class="nv">time</span><span class="o">=</span><span class="m">0</span>.196 ms
+<span class="o">[</span><span class="m">1500982522</span>.980482<span class="o">]</span> <span class="m">1208</span> bytes from &lt;fci-ip&gt;: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">4</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">64</span> <span class="nv">time</span><span class="o">=</span><span class="m">0</span>.243 ms
+....
+<span class="o">[</span><span class="m">1500982533</span>.034267<span class="o">]</span> <span class="m">1208</span> bytes from &lt;fci-ip&gt;: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">9999</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">64</span> <span class="nv">time</span><span class="o">=</span><span class="m">0</span>.236 ms
+<span class="o">[</span><span class="m">1500982533</span>.035211<span class="o">]</span> <span class="m">1208</span> bytes from &lt;fci-ip&gt;: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">10000</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">64</span> <span class="nv">time</span><span class="o">=</span><span class="m">0</span>.203 ms
+
+--- &lt;fci-ip&gt; ping statistics ---
+<span class="m">10000</span> packets transmitted, <span class="m">10000</span> received, <span class="m">0</span>% packet loss, <span class="nb">time</span> 10057ms
+rtt min/avg/max/mdev <span class="o">=</span> <span class="m">0</span>.147/0.240/0.502/0.038 ms
+</pre></div>
+</div>
+<p>The example result shows an average round-trip time of 0.24 ms and a maximum round-trip time of 0.5
+ms. The standard deviation <cite>mdev</cite> is around 0.04 ms. As explained in the
+<a class="reference internal" href="requirements.html#requirement-network"><span class="std std-ref">network requirements section</span></a> it must be guaranteed that the sum of the
+round-trip time and the execution time of the motion generator or control loop is
+<strong>less than 1 ms</strong>. If this constraint is violated for a cycle, the received packet is dropped by
+the FCI.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="ros_introduction.html" class="btn btn-neutral" title="franka_ros" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Franka Emika GmbH.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

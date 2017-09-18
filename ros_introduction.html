@@ -1,0 +1,587 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>franka_ros &mdash; Franka Control Interface (FCI) 0.1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.png"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/style_override.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Franka Control Interface (FCI) 0.1.0 documentation" href="index.html"/>
+        <link rel="next" title="Troubleshooting" href="troubleshooting.html"/>
+        <link rel="prev" title="libfranka" href="libfranka.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Franka Control Interface (FCI)
+          
+
+          
+            
+            <img src="_static/logo.svg" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="requirements.html">Minimum system and network requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libfranka.html">libfranka</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">franka_ros</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#franka-description">franka_description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#franka-gripper">franka_gripper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#franka-hw">franka_hw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#franka-control">franka_control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#franka-visualization">franka_visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#franka-example-controllers">franka_example_controllers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#panda-moveit-config">panda_moveit_config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#writing-your-own-controller">Writing  your own controller</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Franka Control Interface (FCI)</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>franka_ros</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/ros_introduction.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="franka-ros">
+<h1>franka_ros<a class="headerlink" href="#franka-ros" title="Permalink to this headline">¶</a></h1>
+<p>Before continuing with this chapter, please follow the steps from the
+<a class="reference internal" href="installation.html#installing-ros"><span class="std std-ref">building the ROS packages</span></a> section.</p>
+<p>The <code class="docutils literal"><span class="pre">franka_ros</span></code> repository contains a variety of packages that are briefly introduced here.
+We also give a short how-to for <a class="reference internal" href="#write-own-controller"><span class="std std-ref">writing controllers</span></a>.</p>
+<p>All parameters passed to launch files in this section come with default values, so they
+can be omitted if using the default network addresses and ROS namespaces.
+Make sure the <code class="docutils literal"><span class="pre">source</span></code> command was called with the setup script from your workspace:</p>
+<div class="highlight-shell"><div class="highlight"><pre><span></span><span class="nb">source</span> /path/to/catkin_ws/devel/setup.sh
+</pre></div>
+</div>
+<div class="section" id="franka-description">
+<h2>franka_description<a class="headerlink" href="#franka-description" title="Permalink to this headline">¶</a></h2>
+<p>This package contains the description of our robots and end effectors in terms of kinematics, joint
+limits, visual surfaces and collision space. The collision space is a simplified version of the
+visual description used to improve performance of collision checks. The descriptions are based on
+the URDF format according to the <a class="reference external" href="http://wiki.ros.org/urdf/XML">URDF XML documentation</a> .</p>
+</div>
+<div class="section" id="franka-gripper">
+<h2>franka_gripper<a class="headerlink" href="#franka-gripper" title="Permalink to this headline">¶</a></h2>
+<p>This package implements the <code class="docutils literal"><span class="pre">franka_gripper_node</span></code> for interfacing a gripper from ROS.
+The node publishes the state of the gripper and offers the following <cite>actions servers</cite>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">franka_gripper::MoveAction(width,</span> <span class="pre">speed)</span></code>: moves to a target <cite>width</cite> with the defined
+<cite>speed</cite>.</li>
+<li><code class="docutils literal"><span class="pre">franka_gripper::GraspAction(width,</span> <span class="pre">speed,</span> <span class="pre">force)</span></code>: tries to grasp at the desired
+<cite>width</cite> with a desired <cite>force</cite> while closing with the given <cite>speed</cite>.</li>
+<li><code class="docutils literal"><span class="pre">franka_gripper::HomingAction()</span></code>: homes the gripper and updates the maximum width given the
+mounted fingers.</li>
+<li><code class="docutils literal"><span class="pre">franka_gripper::StopAction()</span></code>: aborts a running action. This can be used to stop applying
+forces after grasping.</li>
+<li><code class="docutils literal"><span class="pre">control_msgs::GripperCommandAction(width,</span> <span class="pre">max_effort)</span></code>: A standard gripper action
+recognized by MoveIt!.</li>
+</ul>
+</div></blockquote>
+<p>You can launch the <code class="docutils literal"><span class="pre">franka_gripper_node</span></code> with:</p>
+<div class="highlight-shell"><div class="highlight"><pre><span></span>roslaunch franka_gripper franka_gripper.launch robot_ip:<span class="o">=</span>&lt;fci-ip&gt;
+  arm_id:<span class="o">=</span>&lt;your_robot_namespace&gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="franka-hw">
+<span id="id1"></span><h2>franka_hw<a class="headerlink" href="#franka-hw" title="Permalink to this headline">¶</a></h2>
+<p>This package contains the hardware abstraction of the robot for the ROS control framework
+based on the <code class="docutils literal"><span class="pre">libfranka</span></code> API. The hardware class <code class="docutils literal"><span class="pre">franka_hw::FrankaHW</span></code> is implemented in this
+package offering the following interfaces to controllers:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="52%" />
+<col width="48%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Interface</th>
+<th class="head">Function</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">hardware_interface::JointStateInterface</span></code></td>
+<td>Reads joint states.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">hardware_interface::VelocityJointInterface</span></code></td>
+<td>Commands joint velocities and reads joint
+states.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">hardware_interface::PositionJointInterface</span></code></td>
+<td>Commands joint positions and reads joint
+states.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">hardware_interface::EffortJointInterface</span></code></td>
+<td>Commands joint-level torques and reads
+joint states.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">franka_hw::FrankaStateInterface</span></code></td>
+<td>Reads the full robot state.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">franka_hw::FrankaPoseCartesianInterface</span></code></td>
+<td>Commands Cartesian poses and reads the full
+robot state.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">franka_hw::FrankaVelocityCartesianInterface</span></code></td>
+<td>Commands Cartesian velocities and reads the
+full robot state.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">franka_hw::FrankaModelInterface</span></code></td>
+<td>Reads the dynamic and kinematic model of the
+robot.</td>
+</tr>
+</tbody>
+</table>
+<p>To use ROS control interfaces, you have to retrieve resource handles by name:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="55%" />
+<col width="45%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Interface</th>
+<th class="head">Resource handle name</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">hardware_interface::JointStateInterface</span></code></td>
+<td>“&lt;arm_id&gt;_joint1” to “&lt;arm_id&gt;_joint7”</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">hardware_interface::VelocityJointInterface</span></code></td>
+<td>“&lt;arm_id&gt;_joint1” to “&lt;arm_id&gt;_joint7”</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">hardware_interface::PositionJointInterface</span></code></td>
+<td>“&lt;arm_id&gt;_joint1” to “&lt;arm_id&gt;_joint7”</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">hardware_interface::EffortJointInterface</span></code></td>
+<td>“&lt;arm_id&gt;_joint1” to “&lt;arm_id&gt;_joint7”</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">franka_hw::FrankaStateInterface</span></code></td>
+<td>“&lt;arm_id&gt;_robot”</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">franka_hw::FrankaPoseCartesianInterface</span></code></td>
+<td>“&lt;arm_id&gt;_robot”</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">franka_hw::FrankaVelocityCartesianInterface</span></code></td>
+<td>“&lt;arm_id&gt;_robot”</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">franka_hw::FrankaModelInterface</span></code></td>
+<td>“&lt;arm_id&gt;_robot”</td>
+</tr>
+</tbody>
+</table>
+<p>The <code class="docutils literal"><span class="pre">franka_hw::FrankaHW</span></code> class also implements the starting, stopping and switching of
+controllers.</p>
+</div>
+<div class="section" id="franka-control">
+<span id="id2"></span><h2>franka_control<a class="headerlink" href="#franka-control" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">franka_control</span></code> provides a variety of ROS services to expose the full <code class="docutils literal"><span class="pre">libfranka</span></code>
+API in the ROS ecosystem. The following services are provided:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">franka_control::SetJointImpedance</span></code> specifies joint stiffness for the internal controller
+(damping is automatically derived from the stiffness).</li>
+<li><code class="docutils literal"><span class="pre">franka_control::SetCartesianImpedance</span></code> specifies Cartesian stiffness for the internal
+controller (damping is automatically derived from the stiffness).</li>
+<li><code class="docutils literal"><span class="pre">franka_control::SetEEFrame</span></code> specifies the transformation from &lt;arm_id&gt;_EE to &lt;arm_id&gt;_link8
+frame.</li>
+<li><code class="docutils literal"><span class="pre">franka_control::SetKFrame</span></code> specifies the transformation from &lt;arm_id&gt;_K to &lt;arm_id&gt;_EE frame.</li>
+<li><code class="docutils literal"><span class="pre">franka_control::SetForceTorqueCollisionBehavior</span></code> sets thresholds for external Cartesian
+wrenches to configure the collision reflex.</li>
+<li><code class="docutils literal"><span class="pre">franka_control::SetFullCollisionBehavior</span></code> sets thresholds for external forces on Cartesian
+and joint level to configure the collision reflex.</li>
+<li><code class="docutils literal"><span class="pre">franka_control::SetLoad</span></code> sets an external load to compensate (e.g. of a grasped object).</li>
+</ul>
+</div></blockquote>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">The &lt;arm_id&gt;_EE frame is a child of the &lt;arm_id&gt;_link8 frame and denotes the configurable
+end effector frame. The &lt;arm_id&gt;_K frame is a child frame of &lt;arm_id&gt;_EE and marks the center
+of the internal Cartesian impedance. It also serves as a reference frame for external
+wrenches. <em>Neither the &lt;arm_id&gt;_EE nor the &lt;arm_id&gt;_K are contained in the URDF as they can be
+changed at run time</em>.</p>
+</div>
+<p>To recover from errors and reflexes the <code class="docutils literal"><span class="pre">franka_control::ErrorRecoveryAction</span></code> can be called.
+That can be done from an action client or by simply publishing on the action goal topic:</p>
+<div class="highlight-shell"><div class="highlight"><pre><span></span>rostopic pub /&lt;your_robot_namespace&gt;/error_recovery/goal franka_hw/ErrorRecoveryActionGoal <span class="s2">&quot;{}&quot;</span>
+</pre></div>
+</div>
+<p>After recovery, the <code class="docutils literal"><span class="pre">franka_control_node</span></code> restarts the controllers that were running. That is
+possible as the node does not die when robot reflexes are triggered or errors are occurred.
+All of these functionalities are provided by the <code class="docutils literal"><span class="pre">franka_control_node</span></code> which can be launched
+with the following command:</p>
+<div class="highlight-shell"><div class="highlight"><pre><span></span>roslaunch franka_control franka_control.launch robot_ip:<span class="o">=</span>&lt;fci-ip&gt;
+  arm_id:<span class="o">=</span>&lt;your_robot_namespace&gt; load_gripper:<span class="o">=</span>&lt;true/false&gt;
+</pre></div>
+</div>
+<p>Besides loading the <code class="docutils literal"><span class="pre">franka_control_node</span></code>, the launch file also starts a
+<code class="docutils literal"><span class="pre">franka_control::FrankaStateController</span></code> for reading and publishing the robot states, including
+external wrenches, configurable transforms and the joint states required for visualization with
+rivz. For visualization purposes, a <code class="docutils literal"><span class="pre">robot_state_publisher</span></code> is started together with RViz.</p>
+</div>
+<div class="section" id="franka-visualization">
+<h2>franka_visualization<a class="headerlink" href="#franka-visualization" title="Permalink to this headline">¶</a></h2>
+<p>This package contains the <code class="docutils literal"><span class="pre">franka_joint_state_publisher</span></code> which connects to the robot using
+the <code class="docutils literal"><span class="pre">libfranka</span></code> API and visualizes it in RViz. To run this package launch:</p>
+<div class="highlight-shell"><div class="highlight"><pre><span></span>roslaunch franka_visualization franka_visualization.launch robot_ip:<span class="o">=</span>&lt;fci-ip&gt;
+  load_gripper:<span class="o">=</span>&lt;true/false&gt;
+</pre></div>
+</div>
+<p>This is pure visualization - no commands are sent to the robot. It can be useful to check the
+connection to the robot.</p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">Only one instance of a <code class="docutils literal"><span class="pre">franka::Robot</span></code> can connect to the robot. This means, that for example
+the <code class="docutils literal"><span class="pre">franka_joint_state_publisher</span></code> cannot run in parallel to the <code class="docutils literal"><span class="pre">franka_control_node</span></code>.
+This also implies that you cannot execute the visualization example alongside a separate
+program running a controller.</p>
+</div>
+</div>
+<div class="section" id="franka-example-controllers">
+<span id="example-controllers"></span><h2>franka_example_controllers<a class="headerlink" href="#franka-example-controllers" title="Permalink to this headline">¶</a></h2>
+<p>In this package a set of example controllers for controlling the robot via ROS are implemented.
+The controllers depict the variety of interfaces offered by the <code class="docutils literal"><span class="pre">franka_hw::FrankaHW</span></code> class and
+the according usage. Each example comes with a separate stand-alone launch file that starts the
+controller on the robot and visualizes it.</p>
+<p>To launch the joint impedance example, execute the following command:</p>
+<div class="highlight-shell"><div class="highlight"><pre><span></span>roslaunch franka_example_controllers joint_impedance_example_controller.launch
+  robot_ip:<span class="o">=</span>&lt;fci-ip&gt; load_gripper:<span class="o">=</span>&lt;true/false&gt; arm_id:<span class="o">=</span>&lt;your_robot_namespace&gt;
+</pre></div>
+</div>
+<p>Other examples are started in the same way.</p>
+</div>
+<div class="section" id="panda-moveit-config">
+<h2>panda_moveit_config<a class="headerlink" href="#panda-moveit-config" title="Permalink to this headline">¶</a></h2>
+<p>This package contains partly auto generated files that provide an out-of-the-box MoveIt!
+configuration for Panda Arm and Hand.</p>
+<p>To control the robot with MoveIt! launch the following three files:</p>
+<div class="highlight-shell"><div class="highlight"><pre><span></span><span class="c1"># bring up hardware</span>
+roslaunch franka_control franka_control.launch robot_ip:<span class="o">=</span>&lt;fci-ip&gt;
+  arm_id:<span class="o">=</span>&lt;your_robot_namespace&gt;  load_gripper:<span class="o">=</span>&lt;true/false&gt;
+
+<span class="c1"># start a joint_trajectory_controller of type &lt;controller&gt;</span>
+roslaunch panda_moveit_config panda_moveit.launch  arm_id:<span class="o">=</span>&lt;your_robot_namespace&gt;
+  controller:<span class="o">=</span>&lt;effort/position&gt;
+
+<span class="c1"># for visualization and GUI-based motion planning and execution</span>
+roslaunch panda_moveit_config moveit_rviz.launch
+</pre></div>
+</div>
+<p>For more details, documentation and tutorials, please have a look at the
+<a class="reference external" href="http://docs.ros.org/kinetic/api/moveit_tutorials/html/">MoveIt! tutorials website</a>.</p>
+</div>
+<div class="section" id="writing-your-own-controller">
+<span id="write-own-controller"></span><h2>Writing  your own controller<a class="headerlink" href="#writing-your-own-controller" title="Permalink to this headline">¶</a></h2>
+<p>All example controllers from the <a class="reference internal" href="#example-controllers"><span class="std std-ref">example controllers package</span></a> are
+derived from the <code class="docutils literal"><span class="pre">controller_interface::MultiInterfaceController</span></code> class, which allows to claim
+up to four interfaces in one controller instance. The declaration of your class then looks like:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">NameOfYourControllerClass</span> <span class="o">:</span> <span class="n">controller_interface</span><span class="o">::</span><span class="n">MultiInterfaceController</span> <span class="o">&lt;</span>
+                              <span class="n">my_mandatory_first_interface</span><span class="p">,</span>
+                              <span class="n">my_possible_second_interface</span><span class="p">,</span>
+                              <span class="n">my_possible_third_interface</span><span class="p">,</span>
+                              <span class="n">my_possible_fourth_interface</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="kt">bool</span> <span class="n">init</span> <span class="p">(</span><span class="n">hardware_interface</span><span class="o">::</span><span class="n">RobotHW</span><span class="o">*</span> <span class="n">hw</span><span class="p">,</span> <span class="n">ros</span><span class="o">::</span><span class="n">NodeHandle</span><span class="o">&amp;</span> <span class="n">nh</span><span class="p">);</span>  <span class="c1">// mandatory</span>
+  <span class="kt">void</span> <span class="nf">update</span> <span class="p">(</span><span class="k">const</span> <span class="n">ros</span><span class="o">::</span><span class="n">Time</span><span class="o">&amp;</span> <span class="n">time</span><span class="p">,</span> <span class="k">const</span> <span class="n">ros</span><span class="o">::</span><span class="n">Duration</span><span class="o">&amp;</span> <span class="n">period</span><span class="p">);</span>  <span class="c1">// mandatory</span>
+  <span class="kt">void</span> <span class="nf">starting</span> <span class="p">(</span><span class="k">const</span> <span class="n">ros</span><span class="o">::</span><span class="n">Time</span><span class="o">&amp;</span> <span class="n">time</span><span class="p">)</span>   <span class="c1">// optional</span>
+  <span class="kt">void</span> <span class="n">stopping</span> <span class="p">(</span><span class="k">const</span> <span class="n">ros</span><span class="o">::</span><span class="n">Time</span><span class="o">&amp;</span> <span class="n">time</span><span class="p">);</span>  <span class="c1">// optional</span>
+  <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The available interfaces are described in Section <a class="reference internal" href="#franka-hw"><span class="std std-ref">franka_hw</span></a>.</p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">Note that the claimable combinations of commanding interfaces are restricted as it does not
+make sense to e.g. command joint positions and Cartesian poses simultaneously. Read-only
+interfaces like the <em>JointStateInterface</em>, the <em>FrankaStateInterface</em> or the
+<em>FrankaModelInterface</em> can always be claimed and are not subject to restrictions.</p>
+</div>
+<p>Possible claims are:</p>
+<blockquote>
+<div><ul class="simple">
+<li>all possible single interface claims</li>
+<li><em>EffortJointInterface</em> + <em>PositionJointInterface</em></li>
+<li><em>EffortJointInterface</em> + <em>VelocityJointInterface</em></li>
+<li><em>EffortJointInterface</em> + <em>FrankaCartesianPoseInterface</em></li>
+<li><em>EffortJointInterface</em> + <em>FrankaCartesianVelocityInterface</em></li>
+</ul>
+</div></blockquote>
+<p>The idea behind offering the <em>EffortJointInterface</em> in combination with a motion generator
+interface is to expose the internal motion generators to the user. The calculated desired joint
+pose corresponding to a motion generator command is available in the robot state one time step
+later. One use case for this combination would be following a Cartesian trajectory using your own
+joint-level torque controller. In this case you would claim the combination <em>EffortJointInterface</em>
++ <em>FrankaCartesianPoseInterface</em>, stream your trajectory into the <em>FrankaCartesianPoseInterface</em>,
+and compute your joint-level torque commands based on the resulting desired joint pose (q_d) from
+the robot state. This allows to use the robot’s built-in inverse kinematics instead of having to
+solve it on your own.</p>
+<p>To implement a fully functional controller you have to implement at least the inherited virtual
+functions <code class="docutils literal"><span class="pre">init</span></code> and <code class="docutils literal"><span class="pre">update</span></code>. Initializing - e.g. start poses - should be done in the
+<code class="docutils literal"><span class="pre">starting</span></code> function as <code class="docutils literal"><span class="pre">starting</span></code> is called when restarting the controller, while <code class="docutils literal"><span class="pre">init</span></code> is
+called only once when loading the controller. The <code class="docutils literal"><span class="pre">stopping</span></code> method should contain shutdown
+related functionality (if needed).</p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">Always command a gentle slowdown before shutting down the controller. When using velocity
+interfaces, do not simply command zero velocity in <code class="docutils literal"><span class="pre">stopping</span></code>. Since it might be called
+while the robot is still moving, it would be equivalent to commanding a jump in velocity
+leading to very high resulting joint-level torques. In this case it would be better to keep the
+same velocity and stop the controller than sending zeros and let the robot handle
+the slowdown.</p>
+</div>
+<p>Your controller class must be exported correctly with <code class="docutils literal"><span class="pre">pluginlib</span></code> which requires adding:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;pluginlib/class_list_macros.h&gt;</span><span class="cp"></span>
+<span class="c1">// Implementation ..</span>
+<span class="n">PLUGINLIB_EXPORT_CLASS</span><span class="p">(</span><span class="n">name_of_your_controller_package</span><span class="o">::</span><span class="n">NameOfYourControllerClass</span><span class="p">,</span>
+                       <span class="n">controller_interface</span><span class="o">::</span><span class="n">ControllerBase</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>at the end of the <code class="docutils literal"><span class="pre">.cpp</span></code> file. In addition you need to define a <code class="docutils literal"><span class="pre">plugin.xml</span></code> file with the
+following content:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span></span><span class="nt">&lt;library</span> <span class="na">path=</span><span class="s">&quot;lib/lib&lt;name_of_your_controller_library&gt;&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;class</span> <span class="na">name=</span><span class="s">&quot;name_of_your_controller_package/NameOfYourControllerClass&quot;</span>
+         <span class="na">type=</span><span class="s">&quot;name_of_your_controller_package::NameOfYourControllerClass&quot;</span>
+         <span class="na">base_class_type=</span><span class="s">&quot;controller_interface::ControllerBase&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;description&gt;</span>
+      Some text to describe what your controller is doing
+    <span class="nt">&lt;/description&gt;</span>
+  <span class="nt">&lt;/class&gt;</span>
+<span class="nt">&lt;/library&gt;</span>
+</pre></div>
+</div>
+<p>which is exported by adding:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span></span><span class="nt">&lt;export&gt;</span>
+  <span class="nt">&lt;controller_interface</span> <span class="na">plugin=</span><span class="s">&quot;${prefix}/plugin.xml&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/export&gt;</span>
+</pre></div>
+</div>
+<p>to your package.xml. Further, you need to load at least a controller name in combination with a
+controller type to the ROS parameter server. Additionally, you can include other parameters you
+need. An exemplary configuration.yaml file can look like:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">your_custom_controller_name</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">name_of_your_controller_package/NameOfYourControllerClass</span>
+  <span class="l l-Scalar l-Scalar-Plain">additional_example_parameter</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">0.0</span>
+  <span class="c1"># ..</span>
+</pre></div>
+</div>
+<p>Now you can start your controller using the <code class="docutils literal"><span class="pre">controller_spawner</span></code> node from ROS control or via the
+service calls offered by the <code class="docutils literal"><span class="pre">hardware_manager</span></code>. Just make sure that both the
+<code class="docutils literal"><span class="pre">controller_spawner</span></code> and the <code class="docutils literal"><span class="pre">franka_control_node</span></code> run in the same namespace. For more details
+have a look at the controllers from the
+<a class="reference internal" href="#example-controllers"><span class="std std-ref">franka_example_controllers package</span></a> or the
+<a class="reference external" href="http://wiki.ros.org/ros_control/Tutorials">ROS control tutorials</a>.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="troubleshooting.html" class="btn btn-neutral float-right" title="Troubleshooting" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="libfranka.html" class="btn btn-neutral" title="libfranka" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Franka Emika GmbH.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

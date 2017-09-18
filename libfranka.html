@@ -1,0 +1,367 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>libfranka &mdash; Franka Control Interface (FCI) 0.1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.png"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/style_override.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Franka Control Interface (FCI) 0.1.0 documentation" href="index.html"/>
+        <link rel="next" title="franka_ros" href="ros_introduction.html"/>
+        <link rel="prev" title="Getting started" href="tutorial.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Franka Control Interface (FCI)
+          
+
+          
+            
+            <img src="_static/logo.svg" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="requirements.html">Minimum system and network requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Getting started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">libfranka</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#connecting-libfranka-to-the-robot">Connecting libfranka to the robot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#reading-the-robot-state">Reading the robot state</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#moving-the-robot">Moving the robot</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ros_introduction.html">franka_ros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Franka Control Interface (FCI)</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>libfranka</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/libfranka.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="libfranka">
+<h1>libfranka<a class="headerlink" href="#libfranka" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="connecting-libfranka-to-the-robot">
+<h2>Connecting libfranka to the robot<a class="headerlink" href="#connecting-libfranka-to-the-robot" title="Permalink to this headline">¶</a></h2>
+<p>All operations on the robot are performed through the <code class="docutils literal"><span class="pre">franka::Robot</span></code> object. A connection to the
+robot will be established when the object is created:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;franka/robot.h&gt;</span><span class="cp"></span>
+
+<span class="p">...</span>
+
+<span class="n">franka</span><span class="o">::</span><span class="n">Robot</span> <span class="n">robot</span><span class="p">(</span><span class="s">&quot;&lt;control-ip&gt;&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The address can be passed either as a hostname or an IP address. In case of any error, either due
+to networking or conflicting library version, an exception of type <code class="docutils literal"><span class="pre">franka::Exception</span></code> will
+be thrown. When using several robots at the same time, simply create several objects with
+appropriate IP addresses.</p>
+</div>
+<div class="section" id="reading-the-robot-state">
+<h2>Reading the robot state<a class="headerlink" href="#reading-the-robot-state" title="Permalink to this headline">¶</a></h2>
+<p>The functions <code class="docutils literal"><span class="pre">read</span></code> or <code class="docutils literal"><span class="pre">readOnce</span></code> can be used to gather the current robot state, e.g. for
+logging or visualization.</p>
+<p>With a valid connection, <em>a single sample of the robot state</em> can be read using the <code class="docutils literal"><span class="pre">readOnce</span></code>
+function:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span></span><span class="n">franka</span><span class="o">::</span><span class="n">RobotState</span> <span class="n">state</span> <span class="o">=</span> <span class="n">robot</span><span class="p">.</span><span class="n">readOnce</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>The next example shows how to continuously read the robot state using the <code class="docutils literal"><span class="pre">read</span></code> function and a
+callback. Returning <code class="docutils literal"><span class="pre">false</span></code> in the callback stops the loop. In the following, an excerpt of the
+<code class="docutils literal"><span class="pre">echo_robot_state</span></code> example is shown:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span></span><span class="kt">size_t</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">robot</span><span class="p">.</span><span class="n">read</span><span class="p">([</span><span class="o">&amp;</span><span class="n">count</span><span class="p">](</span><span class="k">const</span> <span class="n">franka</span><span class="o">::</span><span class="n">RobotState</span><span class="o">&amp;</span> <span class="n">robot_state</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Printing to std::cout adds a delay. This is acceptable for a read loop such as this,</span>
+  <span class="c1">// but should not be done in a control loop.</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">robot_state</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">count</span><span class="o">++</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">;</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="moving-the-robot">
+<h2>Moving the robot<a class="headerlink" href="#moving-the-robot" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Please read the manual before you start using the robot.</p>
+</div>
+</div></blockquote>
+<p>The robot can be moved by executing one of the many examples provided with <code class="docutils literal"><span class="pre">libfranka</span></code>, such as
+the <code class="docutils literal"><span class="pre">generate_joint_velocity_motion</span></code> example.
+This example will move the last four joints by +/-12 degrees. Prior to running the example,
+verify that the robot has enough free space to move without colliding. Then, execute the following
+command from the <code class="docutils literal"><span class="pre">libfranka</span></code> build directory:</p>
+<div class="highlight-shell"><div class="highlight"><pre><span></span>./examples/generate_joint_velocity_motion &lt;control-ip&gt;
+</pre></div>
+</div>
+<p>The robot is moved by a <cite>controller</cite> which specifies the desired joint level torque. It
+is possible to use a built in <cite>controller</cite>. Alternatively, a self written controller can be
+provided. Additionally, the <cite>controller</cite> can be fed with desired values by <cite>motion generators</cite>.</p>
+<p>Currently the following internal controllers are available:</p>
+<ul class="simple">
+<li>Joint impedance</li>
+</ul>
+<p>For building a motion generator, one of the following four interfaces can be used:</p>
+<ul class="simple">
+<li>Joint position</li>
+<li>Joint velocity</li>
+<li>Cartesian position</li>
+<li>Cartesian velocity</li>
+</ul>
+<p>The motions are executed by providing a callback to the <code class="docutils literal"><span class="pre">franka::Robot::control</span></code> function.
+An excerpt from <code class="docutils literal"><span class="pre">examples/generate_joint_velocity_motion.cpp</span></code> is shown in the following:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span></span><span class="kt">double</span> <span class="n">time_max</span> <span class="o">=</span> <span class="mf">4.0</span><span class="p">;</span>
+<span class="kt">double</span> <span class="n">omega_max</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">;</span>
+<span class="kt">double</span> <span class="n">time</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+<span class="n">robot</span><span class="p">.</span><span class="n">control</span><span class="p">([</span><span class="o">=</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">time</span><span class="p">](</span><span class="k">const</span> <span class="n">franka</span><span class="o">::</span><span class="n">RobotState</span><span class="o">&amp;</span><span class="p">,</span>
+                         <span class="n">franka</span><span class="o">::</span><span class="n">Duration</span> <span class="n">time_step</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">franka</span><span class="o">::</span><span class="n">JointVelocities</span> <span class="p">{</span>
+  <span class="n">time</span> <span class="o">+=</span> <span class="n">time_step</span><span class="p">.</span><span class="n">s</span><span class="p">();</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="n">time</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">time_max</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Finished motion, shutting down example&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">franka</span><span class="o">::</span><span class="n">Stop</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kt">double</span> <span class="n">cycle</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">floor</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">pow</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="p">(</span><span class="n">time</span> <span class="o">-</span> <span class="n">std</span><span class="o">::</span><span class="n">fmod</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">time_max</span><span class="p">))</span> <span class="o">/</span> <span class="n">time_max</span><span class="p">));</span>
+  <span class="kt">double</span> <span class="n">omega</span> <span class="o">=</span> <span class="n">cycle</span> <span class="o">*</span> <span class="n">omega_max</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">std</span><span class="o">::</span><span class="n">cos</span><span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">M_PI</span> <span class="o">/</span> <span class="n">time_max</span> <span class="o">*</span> <span class="n">time</span><span class="p">));</span>
+
+  <span class="k">return</span> <span class="p">{{</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">omega</span><span class="p">,</span> <span class="n">omega</span><span class="p">,</span> <span class="n">omega</span><span class="p">,</span> <span class="n">omega</span><span class="p">}};</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>The callback provided to the <code class="docutils literal"><span class="pre">robot.control</span></code> will be executed for each robot state received from
+the robot by the control interface, at 1 kHz frequency. In the callback, read() and readOnce() are
+not needed as the robot state is provided as an input argument to the callback. In the above
+example, the desired velocity is returned as <code class="docutils literal"><span class="pre">{{0.0,</span> <span class="pre">0.0,</span> <span class="pre">0.0,</span> <span class="pre">omega,</span> <span class="pre">omega,</span> <span class="pre">omega,</span> <span class="pre">omega}}</span></code>
+during motion. When the motion is finished <code class="docutils literal"><span class="pre">franka::Stop</span></code> is returned instead. This example uses
+robot’s internal joint impedance controller.</p>
+<div class="admonition caution">
+<p class="first admonition-title">Caution</p>
+<p class="last">Do not call any <code class="docutils literal"><span class="pre">franka::Robot</span></code> functions inside of the callbacks, as this would negatively
+influence the timings.</p>
+</div>
+<p>For writing a controller, the <code class="docutils literal"><span class="pre">franka::Robot::control</span></code> function is used as well. The following
+example shows a simple controller commanding zero torque for each joint. The gravity is
+compensated by the robot.</p>
+<div class="highlight-c++"><div class="highlight"><pre><span></span><span class="n">robot</span><span class="p">.</span><span class="n">control</span><span class="p">([</span><span class="o">&amp;</span><span class="p">](</span><span class="k">const</span> <span class="n">franka</span><span class="o">::</span><span class="n">RobotState</span><span class="o">&amp;</span><span class="p">,</span> <span class="n">franka</span><span class="o">::</span><span class="n">Duration</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">franka</span><span class="o">::</span><span class="n">Torques</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="p">{{</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">}};</span>
+    <span class="p">});</span>
+</pre></div>
+</div>
+<p>The combination of both, external motion generation and control is shown in the example file
+<code class="docutils literal"><span class="pre">motion_with_control.cpp</span></code>.</p>
+<p>When creating motions, make sure they have smooth velocity and acceleration profiles. Big
+discontinuities can trigger robot’s safety features and abort the motion.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ros_introduction.html" class="btn btn-neutral float-right" title="franka_ros" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="tutorial.html" class="btn btn-neutral" title="Getting started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Franka Emika GmbH.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
